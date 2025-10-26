@@ -49,5 +49,18 @@ Bash est généralement le shell par défaut
 
 ---
 
+### 0.4. Utiliser github codespaces
+Conditions:
+ - avoir un compte GitHub 
+ - utiliser un dépôt compatible
 
+Depuis un dépôt GitHub : 
+ - Va sur n’importe quel dépôt (le tien ou un public).
+ - Clique sur le bouton <> Code.
+ - Sélectionne l’onglet Codespaces.
+ - Clique sur Create codespace on main (ou sur une autre branche si tu préfères).
+
+<img width="812" height="661" alt="image" src="https://github.com/user-attachments/assets/80105ae4-a205-47d8-9b97-ae7c461b2932" />
+
+---
 
