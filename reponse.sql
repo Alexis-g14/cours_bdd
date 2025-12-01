@@ -33,6 +33,7 @@
 
 -- 1/
 
+/*
 SELECT c.nom, co.commande_id FROM clients c
 LEFT JOIN commandes co ON c.client_id = co.client_id;
 
@@ -87,3 +88,65 @@ SELECT * FROM commandes;
 SELECT c.nom as Cient, p.nom FROM clients c  
 CROSS JOIN produits p;
 
+*/
+
+
+-----------------------------
+-- Partie Agrégation 
+
+-- 1/
+SELECT COUNT(*) as Nb_produit FROM produits;
+
+-- 2/ 
+SELECT categorie, ROUND(AVG(prix),2) FROM produits
+GROUP BY categorie;
+
+-- 3/
+SELECT commande_id, quantite*prix_unitaire as Montant_Total
+FROM lignes_commandes ;
+
+-- 4/
+SELECT client_id, Count(commande_id) as Nb_commande FROM commandes
+GROUP BY client_id
+ORDER BY Nb_commande DESC
+LIMIT 1
+;
+
+-- 5/
+SELECT famille, SUM(stock) as Stocks_disponibles FROM produits
+GROUP BY famille ;
+
+-- 6/
+SELECT categorie, STDDEV(prix) AS Dispersion_prix
+FROM produits
+GROUP BY categorie;
+
+-- 7 
+SELECT c.nom, SUM(lc.quantite * lc.prix_unitaire) as Montant_Total_Vente
+FROM clients c 
+LEFT JOIN commandes co      
+ON c.client_id = co.client_id
+LEFT JOIN lignes_commandes lc 
+ON co.commande_id = lc.commande_id
+GROUP BY c.nom;
+
+-- 8/
+
+SELECT commande_id, EXTRACT(YEAR FROM date_commande)  as Annee  , COUNT(commande_id)
+FROM commandes 
+GROUP BY commande_id
+HAVING EXTRACT(YEAR FROM date_commande)  = '2025'
+;
+
+
+-- 9/
+
+select p.categorie, MIN(p.prix), MAX(p.prix), AVG(p.prix) FROM
+lignes_commandes lc
+INNER JOIN  produits p 
+ON lc.produit_id = p.produit_id 
+GROUP BY p.categorie;
+
+-- 10/
+SELECT nom, stock FROM produits
+WHERE stock%5=0;
